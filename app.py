@@ -8,7 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configure 5 Calls API
-FIVE_CALLS_API_KEY = os.getenv("FIVE_CALLS_API_KEY")
+# First try to get the API key from Streamlit secrets, then fall back to environment variables
+FIVE_CALLS_API_KEY = st.secrets.get(
+    "FIVE_CALLS_API_KEY", os.getenv("FIVE_CALLS_API_KEY")
+)
 FIVE_CALLS_API_BASE = "https://api.5calls.org/v1"
 FIVE_CALLS_HEADERS = (
     {"X-5Calls-Token": FIVE_CALLS_API_KEY} if FIVE_CALLS_API_KEY else {}
